@@ -1,0 +1,58 @@
+# Core ML / Data Science
+pandas
+numpy
+scikit-learn 
+
+# --- Topic Modeling & Embeddings ---
+
+# BERTopic Core (CPU-based UMAP/HDBSCAN dependencies included below)
+bertopic
+
+# Embedding Model & Dependencies
+sentence-transformers
+# torch # CPU version installed by default with sentence-transformers if not present.
+# For PyTorch with GPU (CUDA) support, DO NOT rely on this line.
+# Install manually following instructions at: https://pytorch.org/get-started/locally/
+# Example (CHECK WEBSITE for YOUR CUDA version): pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+
+# pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
+
+# FOR RAPIDS
+# 
+
+# pip install \
+#     --extra-index-url=https://pypi.nvidia.com \
+#     "cudf-cu12==25.4.*" "dask-cudf-cu12==25.4.*" "cuml-cu12==25.4.*" \
+#     "cugraph-cu12==25.4.*" "nx-cugraph-cu12==25.4.*" "cuspatial-cu12==25.4.*" \
+#     "cuproj-cu12==25.4.*" "cuxfilter-cu12==25.4.*" "cucim-cu12==25.4.*" \
+#     "pylibraft-cu12==25.4.*" "raft-dask-cu12==25.4.*" "cuvs-cu12==25.4.*" \
+#     "nx-cugraph-cu12==25.4.*"
+
+
+
+
+# Default CPU-based Dimensionality Reduction & Clustering for BERTopic
+umap-learn # CPU UMAP
+hdbscan # CPU HDBSCAN
+
+# --- GPU Acceleration (Optional - Requires Manual Installation) ---
+# For GPU-accelerated UMAP and HDBSCAN using NVIDIA RAPIDS cuML:
+# 1. Ensure you have a compatible NVIDIA GPU and drivers.
+# 2. Install RAPIDS cuML, preferably using conda. Follow instructions: https://rapids.ai/start.html#get-rapids
+# 3. You typically install 'cuml' via conda, not pip, e.g.: conda install -c rapidsai cuml -c conda-forge -c nvidia
+# cuml # Commented out as installation is manual and preferably via conda
+
+# --- Visualization ---
+plotly
+matplotlib
+seaborn
+adjustText # Used in BERTopic_Visualizations.ipynb
+
+# --- Utilities & I/O ---
+tqdm # For progress bars
+openpyxl # For reading/writing Excel files (used in Preprocessing_May.ipynb)
+
+# --- Jupyter Environment (Optional but good for reproducibility if sharing notebooks) ---
+# jupyterlab
+# notebook
+
