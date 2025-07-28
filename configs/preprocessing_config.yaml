@@ -1,0 +1,58 @@
+# -----------------------------------------------------------------
+# Configuration for Preprocessing SEMANIC Scholar Data
+# -----------------------------------------------------------------
+
+# --- Input/Output Paths ---
+# Relative paths from the project root directory
+paths:
+  # Input file
+  raw_data_file: 'data/raw/reddit_allFoS_2015_to_2025_bulk_results.csv'
+  
+  # Output files
+  processed_data_output_file: 'data/processed/s2_processed_docs.csv'
+  dropped_rows_output_file: 'data/processed/s2_dropped_missing_abstract.csv'
+
+# --- Data Source Specification ---
+data_source:
+  # Columns to combine into the 'docs' column
+  text_source_columns: ['title', 'abstract']
+  
+  # Unique identifier for each document
+  unique_id_column: 'corpusId'
+  
+  # Required columns for creating the 'docs' column. Rows missing these will be dropped.
+  required_columns_for_docs_creation: ['abstract']
+  
+  # Specific processing function for this data type (e.g., 'process_reddit_data').
+  # Set to null if no specific processing is needed.
+  data_type_specific_df_processing: null
+
+# --- Preprocessing Pipeline ---
+preprocessing:
+  # Text cleaning steps
+  cleaning:
+    apply_unescape: true
+    apply_url_removal: true
+    apply_html_tag_removal: true
+    apply_quote_normalization: true
+    apply_char_filtering: true
+    char_filter_regex: "[^a-zA-Z0-9\\s,.!?':;\\\"-]"
+    apply_html_entity_removal: true
+    apply_lowercase: true
+
+  # --- Filtering Steps ---
+  filters:
+    # Length-based filtering
+    apply_length_filter: true
+    min_doc_length: 50
+    max_doc_length: 10000
+
+    # Duplicate removal
+    apply_duplicate_removal: true
+    column_for_duplicate_checking: 'docs'
+
+    # Score-based filtering
+    apply_score_filter: false
+    score_column_for_filtering: null
+    min_score_for_filtering: null
+    max_score_for_filtering: null

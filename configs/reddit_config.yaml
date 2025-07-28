@@ -1,0 +1,48 @@
+# -----------------------------------------------------------------
+# Configuration for Preprocessing REDDIT Data
+# -----------------------------------------------------------------
+
+# --- Input/Output Paths ---
+paths:
+  raw_data_file: 'data/raw/IFS_test.csv' # <-- Assumed name for your Reddit CSV
+  processed_data_output_file: 'data/processed/IFS_test_processed.csv'
+  dropped_rows_output_file: 'data/processed/IFS_test_dropped.csv'
+
+# --- Data Source Specification (Reddit) ---
+data_source:
+  # For Reddit, we might combine title and the main text body
+  text_source_columns: ['title', 'selftext']
+  
+  # The unique ID for a Reddit post is typically 'id'
+  unique_id_column: 'id'
+  
+  # Let's assume 'selftext' is required for a meaningful post
+  required_columns_for_docs_creation: ['selftext']
+  
+  data_type_specific_df_processing: null
+
+# --- Preprocessing Pipeline ---
+preprocessing:
+  cleaning:
+    apply_unescape: true
+    apply_url_removal: true
+    apply_html_tag_removal: true
+    apply_quote_normalization: true
+    apply_char_filtering: true
+    char_filter_regex: "[^a-zA-Z0-9\\s,.!?':;\\\"-]"
+    apply_html_entity_removal: true
+    apply_lowercase: true
+
+  filters:
+    apply_length_filter: true
+    min_doc_length: 20  # May want shorter for Reddit
+    max_doc_length: 10000
+
+    apply_duplicate_removal: true
+    column_for_duplicate_checking: 'docs'
+
+    # Example: Filtering by score is now relevant for Reddit data
+    apply_score_filter: true
+    score_column_for_filtering: 'score'
+    min_score_for_filtering: 5 # Only keep posts with a score of 5 or higher
+    max_score_for_filtering: null # No upper limit
