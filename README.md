@@ -1,13 +1,14 @@
-# BERTopic Modeling Repository for [Your Project Area, e.g., Reddit RPG Subreddits]
+# BERTopic Modeling Repository for Reddit RPG Subreddits
 
-This repository contains code and notebooks for conducting topic modeling experiments using BERTopic, primarily focused on analyzing [Your Data Source, e.g., Reddit comments and submissions]. The project aims to [Your Main Goal, e.g., identify key discussion themes, track topic evolution, compare topics across communities].
+This repository contains a configurable pipeline for conducting topic modeling experiments using BERTopic. It is primarily focused on analyzing text data from sources like Reddit (comments and submissions) or academic papers (e.g., from Semantic Scholar). The project aims to identify key discussion themes, track topic evolution, and compare topics across different communities or datasets.
 
 ## Project Goal
 
-(Expand on this section. What specific questions are you trying to answer? What is the expected outcome or contribution of this analysis?)
-* Example: Identify the primary topics discussed within selected RPG-related subreddits.
-* Example: Compare the prevalence and nature of topics between subreddits like DMAcademy and rpghorrorstories.
-* Example: Analyze how discussion themes change over time.
+The primary goal is to create a reproducible and flexible workflow for topic modeling. Specific analysis questions include:
+*   Identifying the primary topics discussed within selected RPG-related subreddits (e.g., `r/DMAcademy`, `r/rpghorrorstories`, `r/dndnext`).
+*   Comparing the prevalence and nature of topics between different subreddits.
+*   Analyzing how discussion themes change over time, potentially by filtering data by date ranges.
+*   Contrasting topics from community discussions (Reddit) with those from academic literature (Semantic Scholar).
 
 ## Repository Structure
 
@@ -45,7 +46,7 @@ BERTopic_Modeling/├── .gitignore           # Specifies intentionally untra
 1.  **Clone the repository:**
     ```bash
     # Replace 'your-username' with your actual GitHub username
-    git clone [https://github.com/your-username/BERTopic_Modeling.git](https://github.com/your-username/BERTopic_Modeling.git)
+    git clone https://github.com/your-username/BERTopic_Modeling.git
     cd BERTopic_Modeling
     ```
 2.  **Create and Activate Environment (Recommended):**
@@ -88,7 +89,17 @@ BERTopic_Modeling/├── .gitignore           # Specifies intentionally untra
 
 ## Configuration
 
-Pipeline steps (preprocessing, embedding, modeling, visualization) are configured using parameters passed directly in notebooks or, preferably, via YAML files stored in the `configs/` directory. See example configurations within the notebooks and the function definitions in `src/` for available options.
+The entire pipeline is driven by configuration files located in the `configs/` directory. Each YAML file defines a complete experiment, from data loading and filtering to model parameters and output paths.
+
+This approach allows for high reproducibility. To run a new experiment (e.g., with different filters or model parameters), you can simply copy an existing YAML file, modify the desired parameters, and run the notebooks.
+
+Key configurable sections in the YAML include:
+*   `data`: Defines the source type (`reddit`, `semantic_scholar`), input path, and column mappings. This allows the pipeline to adapt to different data schemas.
+*   `preprocessing`: Specifies text unitization (`document`, `paragraph`, `sentence`) and a list of dynamic filters. You can filter on any metadata column (e.g., `score > 5`) or calculated metric (e.g., `text_length_words > 20`).
+*   `embedding`: Sets the sentence-transformer model to be used for generating embeddings.
+*   `modeling`: Contains all parameters for the core BERTopic model, such as `min_topic_size`, `language`, and representation models.
+
+See the example files in the `configs/` directory for a complete schema.
 
 ## Running the Pipeline
 
@@ -106,4 +117,3 @@ Execute the Jupyter notebooks in the `notebooks/` directory sequentially (01 -> 
 ## License
 
 (Optional: Specify your chosen license, e.g., MIT License. If you haven't chosen one, you can add it later.)
-
